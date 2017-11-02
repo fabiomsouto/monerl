@@ -1,0 +1,17 @@
+{application, monerl,
+ [{description, "A library to allow receiving monero payments in an Erlang project"},
+  {vsn, git},
+  {registered, []},
+  {applications,
+   [kernel,
+    stdlib,
+    crypto,
+    poolboy
+   ]},
+  {env,[]},
+  {modules, []},
+
+  {maintainers, ["Fabio Souto <fabiomsouto@gmail.com>"]},
+  {licenses, ["MIT"]},
+  {links, []}
+ ]}.

@@ -1,0 +1,8 @@
+[{<<"jsx">>,
+  {git,"git@github.com:talentdeficit/jsx.git",
+       {ref,"2ecf598b5f1192acf63baeed1dc7fa45149b4e35"}},
+  0},
+ {<<"poolboy">>,
+  {git,"git@github.com:devinus/poolboy.git",
+       {ref,"3bb48a893ff5598f7c73731ac17545206d259fac"}},
+  0}].
