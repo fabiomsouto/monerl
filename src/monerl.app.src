@@ -6,9 +6,11 @@
    [kernel,
     stdlib,
     crypto,
-    poolboy
+    poolboy,
+    fusco
    ]},
-  {env,[]},
+  {env,[
+  ]},
   {modules, []},
 
   {maintainers, ["Fabio Souto <fabiomsouto@gmail.com>"]},

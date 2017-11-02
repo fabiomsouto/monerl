@@ -1,4 +1,5 @@
--define(env(A), application:get_env(A)).
+-type success(A) :: {ok, A}.
+-type error(A) :: {error, A}.
 
 -type payment_id() :: <<_:64>>.
 

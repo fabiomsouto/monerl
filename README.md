@@ -48,8 +48,10 @@ For the example above, a configuration for your application will look something 
     {env, [
         {monerl, [
             {wallet_address, <<"49BKZLHvmgKacPjYFv4iZKJTg2KEhyM958tWaJHX3bUCGrZ3SKXNirvfrCw611eNJid9DKzrUuSwbfXtJjaiNHggLrH6PLN">>},
-            {rpc_daemon_host, <<"localhost">>},
+            {rpc_daemon_host, "localhost"},
             {rpc_daemon_port, 18082},
+            {rpc_daemon_conn_timeout, 500},
+            {rpc_daemon_timeout, 1000},
             {rpc_daemon_username, <<"username">>},
             {rpc_daemon_passwd, <<"password">>},
             {rpc_daemon_proto, json_rpc}
