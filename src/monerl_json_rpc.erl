@@ -17,7 +17,8 @@
 -type settings() :: #settings{}.
 
 -record(integrated_address, {
-    integrated_address :: binary()
+    integrated_address :: binary(),
+    payment_id :: binary()
 }).
 -type integrated_address() :: #integrated_address{}.
 
@@ -39,7 +40,15 @@ make_integrated_address(PaymentId) ->
     Payload = json_rpc_req(0, <<"make_integrated_address">>, [
         {<<"payment_id">>, HexPaymentId}
     ]),
-    fusco_rpc_call(get_settings(), Payload).
+    {ok, {_Status, _Headers, Body, _, _}} = fusco_rpc_call(get_settings(), Payload),
+    DecodedBody = jsx:decode(Body),
+    Result = proplists:get_value(<<"result">>, DecodedBody),
+    IntegratedAddress = proplists:get_value(<<"integrated_address">>, Result),
+    HexPaymentId = proplists:get_value(<<"payment_id">>, Result),
+    {ok, #integrated_address{
+        integrated_address = IntegratedAddress,
+        payment_id = HexPaymentId
+    }}.
 
 %% ------------------------------------------------------------------
 %% Internal Function Definitions
@@ -60,7 +69,7 @@ fusco_rpc_call(#settings{host=Host, port=Port, connect_timeout=ConnT, timeout=T}
     {ok, Client} = fusco:start(Host ++ ":" ++ integer_to_list(Port) , [
         {connect_timeout, ConnT}
     ]),
-    Headers = [], % todo generate digest-auth header
+    Headers = [],
     Result = fusco:request(Client, <<"/json_rpc">>, <<"POST">>, Headers, Payload, T),
     fusco:disconnect(Client),
     Result.
