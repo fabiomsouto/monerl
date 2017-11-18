@@ -60,6 +60,17 @@ For the example above, a configuration for your application will look something 
 ]}.
 ```
 
+## Configuring a testnet wallet
+
+If you want to run unit tests or test the library, you can use a testnet wallet instead of the real deal.
+To do such, do the following:
+* Start `monerod` with the `--testnet` flag
+* Meanwhile, while the testnet blockchain is synchronizing, start your wallet with the `--testnet` flag as well. Keep in mind that the daemon may bind to a different port while in testnet mode, so provide the port if the `--testnet` flag is not enough.
+* Configure a testnet wallet, store its address.
+* Start the `monero-wallet-rpc` with the usual flags, but provide the testnet wallet name and the `testnet` flag too
+* Top-up your testnet wallet using a testnet faucet.
+* Run the library with the testnet address.
+
 ## Future plans
 
 Right now the module is quite dumb. There's only two operations available, your application still has the burden to verify if payment went through, etc. So, to make things better, this should be done:
