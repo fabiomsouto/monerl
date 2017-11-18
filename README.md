@@ -81,7 +81,7 @@ Right now the module is quite dumb. There's only two operations available, your 
 ## Tinkering
 
     $ rebar3 compile
-    $ rebar3 shell
+    $ rebar3 shell --config <your.config> --apps monerl
 
 ## Disclaimer
 
