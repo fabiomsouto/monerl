@@ -5,6 +5,9 @@
 %% ------------------------------------------------------------------
 %% API Function Exports
 %% ------------------------------------------------------------------
+-export([get_balances/0]).
+-export([get_height/0]).
+% -export([get_payments/1]).
 -export([make_integrated_address/0]).
 -export([make_integrated_address/1]).
 
@@ -25,6 +28,32 @@
 %% ------------------------------------------------------------------
 %% API Function Definitions
 %% ------------------------------------------------------------------
+-spec get_balances() -> success(Balances :: balance()) | error(Reason :: any()).
+get_balances() ->
+    Payload = json_rpc_req(0, <<"getbalance">>, []),
+    {ok, {_Status, _Headers, Body, _, _}} = fusco_rpc_call(get_settings(), Payload),
+    DecodedBody = jsx:decode(Body),
+    Result = proplists:get_value(<<"result">>, DecodedBody),
+    Balance = proplists:get_value(<<"balance">>, Result),
+    UnlockedBalance = proplists:get_value(<<"unlocked_balance">>, Result),
+    {ok, #balance{
+        balance = Balance,
+        unlocked_balance = UnlockedBalance
+    }}.
+
+-spec get_height() -> success(Height :: non_neg_integer()) | error(Reason :: any()).
+get_height() ->
+    Payload = json_rpc_req(0, <<"getheight">>, []),
+    {ok, {_Status, _Headers, Body, _, _}} = fusco_rpc_call(get_settings(), Payload),
+    DecodedBody = jsx:decode(Body),
+    Result = proplists:get_value(<<"result">>, DecodedBody),
+    Height = proplists:get_value(<<"height">>, Result),
+    {ok, Height}.
+
+% todo: improve spec
+% -spec get_payments(PaymentId :: binary()) -> success(Payments :: any()) | error(Reason :: any()).
+% get_payments(PaymentId) ->
+
 -spec make_integrated_address() 
     -> Result :: success(integrated_address()) | error(Reason :: any()).
 make_integrated_address() ->
