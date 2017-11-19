@@ -20,10 +20,10 @@ generate_payment_id() ->
     crypto:strong_rand_bytes(8).
 
 -spec generate_monero_uri(WalletAddress :: binary(),
-                          Amount :: binary(),
-                          PaymentId :: binary())
+                          PaymentId :: binary(),
+                          Amount :: binary())
     -> URI :: binary().
-generate_monero_uri(WalletAddress, Amount, PaymentId) ->
+generate_monero_uri(WalletAddress, PaymentId, Amount) ->
     <<"monero:",WalletAddress/binary,
       "?tx_amount=",Amount/binary,
       "&tx_payment_id=",PaymentId/binary>>.

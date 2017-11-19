@@ -19,12 +19,6 @@
 }).
 -type settings() :: #settings{}.
 
--record(integrated_address, {
-    integrated_address :: binary(),
-    payment_id :: binary()
-}).
--type integrated_address() :: #integrated_address{}.
-
 %% ------------------------------------------------------------------
 %% API Function Definitions
 %% ------------------------------------------------------------------
